@@ -3,6 +3,9 @@ package zxl.junit.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * 雪花算法获取序列值
+ */
 public class SnowFlakeUtils {
     private long workerId;
     private long datacenterId;
