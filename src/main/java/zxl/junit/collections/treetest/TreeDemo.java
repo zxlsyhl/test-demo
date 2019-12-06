@@ -1,5 +1,7 @@
-package zxl.junit.collections.maptest;
+package zxl.junit.collections.treetest;
 
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class TreeDemo {
     public static void main(String[] args) {
@@ -21,6 +23,52 @@ public class TreeDemo {
         System.out.println("laterOrderTraverse");
         TreeDemo.laterOrderTraverse(td.getT());
 
+        System.out.println("levelTraverse");
+        TreeDemo.levelTraverse(td.getT());
+    }
+
+    public TreeData get(int data){
+        if(data != t.data){
+            get(data , t);
+        }else{
+            return t;
+        }
+        return null;
+    }
+
+    public void get(int data , TreeData td){
+        if(data != td.data){
+            if(data < td.data){
+                get(data, td.left);
+            }else {
+                get(data, td.right);
+            }
+        }else {
+
+        }
+    }
+
+    /**
+     * 层级遍历
+     * @param td
+     */
+    public static void levelTraverse(TreeData td){
+        if(td == null){
+            return;
+        }
+        Queue<TreeData> queue = new LinkedList<>();
+        TreeData current = null;
+        queue.offer(td);//将根节点入队
+        while (!queue.isEmpty()){
+            current = queue.poll();//出队对头元素并访问
+            System.out.println(current.data);
+            if(current.getLeft() != null){//如果当前节点的左节点不为空入队
+                queue.offer(current.getLeft());
+            }
+            if(current.getRight() != null){//如果当前节点的右节点不为空入队
+                queue.offer(current.getRight());
+            }
+        }
     }
 
     //前序遍历、中序遍历、后序遍历、按层遍历。（先根遍历、中根遍历、后跟遍历）
@@ -32,6 +80,7 @@ public class TreeDemo {
             frontOrderTraverse(td.getRight());
         }
     }
+
     public static void middleOrderTraverse(TreeData td){
         if(td != null){
             //前序遍历，先根再左后右
