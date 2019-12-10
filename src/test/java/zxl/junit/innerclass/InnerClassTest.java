@@ -34,7 +34,7 @@ public class InnerClassTest {
     }
 
     public static void main(String[] args) {
-        InnerClassTest outerObj = new InnerClassTest();
+        InnerClassDemo outerObj = new InnerClassDemo();
         // 不在外部类内部，使用：外部类对象. new 内部类构造器(); 的方式创建内部类对象
         InnerClassA innerObj = outerObj.new InnerClassA();
     }
