@@ -81,4 +81,9 @@ public class BitTestOne {
 
         System.out.println(Math.pow(2,8));
     }
+
+    @Test
+    public void test7(){
+        System.out.println(0x2168);
+    }
 }
