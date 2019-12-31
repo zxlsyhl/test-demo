@@ -48,15 +48,16 @@ public class BitTestOne {
         System.out.println(Integer.parseInt(c,10));
     }
 
+
     @Test
     public void test4(){
-        int a = 0xAD;
+        int a = 0xAD; //十六进制
         System.out.println(a);
 
-        int b = 077;
+        int b = 077; //八进制
         System.out.println(b);
 
-        int c = 0b1001;
+        int c = 0b1001; //二进制
         System.out.println(c);
 
         byte d = -0b1001;
