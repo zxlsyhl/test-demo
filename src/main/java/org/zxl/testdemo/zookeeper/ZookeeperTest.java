@@ -2,14 +2,37 @@ package org.zxl.testdemo.zookeeper;
 
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
+import org.apache.zookeeper.server.ZooKeeperServerListener;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.concurrent.CountDownLatch;
 
 public final class ZookeeperTest {
     ZooKeeper zooKeeper = null;
     @Before
     public void before() throws Exception{
-        zooKeeper = new ZooKeeper("localhost:2181,localhost:2182,localhost:2183", 5000, null);
+        Properties prop = new Properties();
+        String zookeeperPropPath = ZookeeperTest.class.getResource("/zookeeper.properties").getPath();
+        System.out.println("zookeeperPropPath:"+zookeeperPropPath);
+        InputStream is = new FileInputStream(zookeeperPropPath);
+        prop.load(is);
+        String connectString = prop.getProperty("connectString");
+        System.out.println("connectString:"+connectString);
+        final CountDownLatch cdl = new CountDownLatch(1);
+        zooKeeper = new ZooKeeper(connectString, 5000, new Watcher() {
+            @Override
+            public void process(WatchedEvent event) {
+                if(event.getState() == Event.KeeperState.SyncConnected){
+                    System.out.println("连接成功");
+                    cdl.countDown();
+                }
+            }
+        });
+        cdl.await();
         System.out.println("zooKeeper.getState():"+zooKeeper.getState());
         System.out.println("zooKeeper.getSessionId():"+zooKeeper.getSessionId());
     }
@@ -44,5 +67,8 @@ public final class ZookeeperTest {
         if(sqlserver != null){
             System.out.println(new String(sqlserver.toString()));
         }
+    }
+
+    public void test4() throws Exception{
     }
 }

@@ -7,6 +7,13 @@
     <groupId>org.zxl</groupId>
     <artifactId>test-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -28,11 +35,27 @@
 
     </dependencies>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
+    <profiles>
+        <!-- 家用电脑 -->
+        <profile>
+            <id>home</id>
+            <properties>
+                <profiles.active>home</profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <!-- 公司电脑 -->
+        <profile>
+            <id>com</id>
+            <properties>
+                <profiles.active>com</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
@@ -43,6 +66,29 @@
                 </configuration>
             </plugin>
         </plugins>
+        <!-- 指定包含文件，及文件夹
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>zookeeper2.properties</include>
+                    <include>${profiles.active}/*</include>
+                </includes>
+            </resource>
+        </resources>
+         -->
+        <!-- 配置多个resource，指定文件夹下的内容，不用包含文件夹 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>log4j.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/${profiles.active}</directory>
+            </resource>
+        </resources>
     </build>
 
 
