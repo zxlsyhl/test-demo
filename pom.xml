@@ -42,9 +42,6 @@
             <properties>
                 <profiles.active>home</profiles.active>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
 
         <!-- 公司电脑 -->
@@ -53,6 +50,9 @@
             <properties>
                 <profiles.active>com</profiles.active>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
     </profiles>
 
