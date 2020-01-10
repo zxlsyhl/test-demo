@@ -1,6 +1,6 @@
 package org.zxl.testdemo.insertMysql;
 
-import org.zxl.testdemo.util.SnowFlakeUtils;
+import org.zxl.testdemo.sequence.SnowFlakeUtils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
